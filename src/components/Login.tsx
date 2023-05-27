@@ -55,7 +55,7 @@ const Login = ({ setLogin }: Props) => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-6" style={{marginTop:"20px"}}>
           <div className="card">
             <div className="card-body">
               <h3 className="card-title">Login</h3>
