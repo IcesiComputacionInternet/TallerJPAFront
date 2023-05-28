@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 const baseUrl = "http://localhost:8080";
@@ -20,11 +20,6 @@ const Login = ({setLogin}:Props) => {
             {
                 username,
                 password
-            },
-            {
-                headers: {
-                    "Access-Control-Allow-Origin": baseUrl
-                }
             }
         );
 
