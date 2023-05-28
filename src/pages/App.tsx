@@ -3,7 +3,7 @@ import Login from '../components/Login';
 import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Home from "../components/Home";
 import NotFound from "../components/NotFound";
-import './App.css';
+import '../styles/App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
