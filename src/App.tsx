@@ -1,14 +1,35 @@
-import Message from './Message'
-import './App.css'
+import { useState, useEffect } from "react";
+import Login from "./components/Login";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import NotFound from "./components/NotFound";
 
-function App() {
+function App(){
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+        () => localStorage.getItem("jwt") !== null
+    );
 
-  //Creamos un div y dentro de el le asignamos el componente Message
-  //return <div> <Message/> </div>;
+    useEffect(() => {
+        localStorage.setItem("logged_user", JSON.stringify(isLoggedIn));
+    }, [isLoggedIn]);
 
-  return (
-      <Message message = "Hello from app"/>
-  );
+    const logIn = () => setIsLoggedIn(true);
+
+    return(
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<Login setLogin={logIn}/>}></Route>
+                <Route
+                    path="/"
+                    element={isLoggedIn ? <Home />: <Navigate to = "/login"/>}
+                ></Route>
+                <Route
+                    path="/*"
+                    element={isLoggedIn ? <NotFound />: <Navigate to = "/login"/>}
+                ></Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
-export default App
+export default App;

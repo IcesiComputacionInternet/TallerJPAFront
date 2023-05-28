@@ -23,8 +23,10 @@ function ListGroup(){
                     >
                         {item}
                     </li>
+                    
                 ))}
             </ul>
+            <h1> {items[selectedIndex]} </h1>
         </>
     );
 }

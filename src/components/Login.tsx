@@ -9,7 +9,7 @@ interface Props{
 }
 
 const Login = ({ setLogin }: Props) => {
-    const [username, setUsername] = useState("");
+    const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigation : NavigateFunction = useNavigate();
 
@@ -17,31 +17,35 @@ const Login = ({ setLogin }: Props) => {
         //console.log({username, password})
 
         event.preventDefault();
-
-        const { data } = await axios.post(
+        
+        try{
+            const { data } = await axios.post(
             
-            baseUrl + "/token",
-            {
-                username,
-                password,
-            },
-            {
-                headers: {
-                    "Access-Control-Allow-Origin": baseUrl,
+                baseUrl + "/token",
+                {
+                    userName,
+                    password,
                 },
+                {
+                    headers: {
+                        "Access-Control-Allow-Origin": baseUrl,
+                    },
+                }
+            );
+    
+            if(data.token){
+                //redirect to home page
+                localStorage.setItem("jwt", data.token);
+                setLogin();
+                navigation("/");
+    
             }
-        );
 
-        if(data.token){
-            //redirect to home page
-            localStorage.setItem("jwt", data.token);
-            setLogin(true);
-            navigation("/");
-
-        }else{
-            //show a error message
+        }catch(error){
             alert("Invalid username or password")
+            navigation("/NotFound");
         }
+        
     };
 
     return(
@@ -57,8 +61,8 @@ const Login = ({ setLogin }: Props) => {
                                         type="text" 
                                         className="form-control"
                                         placeholder="Username"
-                                        value={username}
-                                        onChange={(event) => setUsername(event.target.value)}
+                                        value={userName}
+                                        onChange={(event) => setUserName(event.target.value)}
                                     />
                                 </div>
                                 <div className="form-group">
