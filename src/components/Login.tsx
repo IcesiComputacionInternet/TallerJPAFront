@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { NavigateFunction, useNavigate} from "react-router-dom";
 import { login } from '../services/Login';
+import ToastAlert from './ToastAlert';
+
 interface Props {
     setLogin: () => void;
 }
@@ -8,7 +10,17 @@ interface Props {
 const Login = ({setLogin}: Props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [showToast, setShowToast] = useState(false);
+    const [response, setResponse] = useState("");
+
     const navigation: NavigateFunction = useNavigate();
+    
+    const handleShowToast = () => {
+      setShowToast(true);
+    };
+    const handleCloseToast = () => {
+      setShowToast(false);
+    };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -16,21 +28,33 @@ const Login = ({setLogin}: Props) => {
             if (result) {
                 setLogin();
                 navigation("/");
-            }else {
-                alert("Invalid username or password");
+            }
+        }).catch((error) => {
+            handleShowToast();
+            if(error.response.status === 400) {
+                console.log(error.response.status);
+                setResponse("El correo o la contraseña no cumplen con las condiciones");
+            }else if(error.response.status === 401) {
+                console.log(error.response.status);
+                setResponse("El correo o la contraseña son incorrectos");
             }
         });
     };
 
     return (
-        <div className='container'>
-            <div className='row justify-content-center'>
+        <div className='container d-flex align-items-center' style={{ height: "80vh"}}>
+            <div className='row justify-content-center w-100'>
                 <div className='col-md-6'>
+                    <h1 className="display-4 text-center mb-4" 
+                        style={{ fontWeight: "bold", 
+                                background: "linear-gradient(to right, #ffff00, #e52e71)", 
+                                WebkitBackgroundClip: "text", 
+                                WebkitTextFillColor: "transparent" }}>Icesi Accounts</h1>
                     <div className='card'>
-                        <div className='card-body'>
+                        <div className='card-body text-center'>
                             <h3 className='card-title'>Login</h3>
                             <form onSubmit={handleSubmit}>
-                                <div className='form-group'>
+                                <div className='form-group my-2'>
                                     <input 
                                         type="text"
                                         className='form-control'
@@ -39,7 +63,7 @@ const Login = ({setLogin}: Props) => {
                                         onChange={(event) => setUsername(event.target.value)} 
                                     />
                                 </div>
-                                <div className='form-group'>
+                                <div className='form-group my-2'>
                                     <input
                                         type="password"
                                         className='form-control'
@@ -50,7 +74,7 @@ const Login = ({setLogin}: Props) => {
                                 </div>
                                 <button 
                                     type='submit'
-                                    className='btn btn-primary btn-block'
+                                    className='btn btn-primary btn-block my-2'
                                 >
                                     Login
                                 </button>
@@ -59,6 +83,11 @@ const Login = ({setLogin}: Props) => {
                     </div>
                 </div>
             </div>
+            {showToast && (
+            <div className="position-fixed top-50 start-50 translate-middle">
+                <ToastAlert message={response} onClose={handleCloseToast} />
+            </div>
+            )}
         </div>
     );
 };
