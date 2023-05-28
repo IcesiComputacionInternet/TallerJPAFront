@@ -24,7 +24,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const user = await LoginService.login({ username, password });
-      localStorage.setItem("token", JSON.stringify(user.data));
+      localStorage.setItem("token", user.data);
       navigate("/home");
     } catch (e) {
       Swal.fire({
