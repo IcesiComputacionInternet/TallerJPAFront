@@ -1,30 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 const baseUrl = "http://localhost:8090";
 
 interface Props {
   setLogin: (value: boolean) => void;
 }
-
-interface AccountsDTO {
-  number: string;
-  balance: number;
-}
-
 const Home = ({ setLogin }: Props) => {
-  const [accounts, setAccounts] = useState<AccountsDTO[]>([]);
+  const [accounts, setAccounts] = useState([]);
 
-  const getData = async () => {
-    const { data } = await axios.get(`${baseUrl}/accounts/allAccounts`, {
-      headers: {
-        "Access-Control-Allow-Origin": baseUrl,
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    });
-    console.log("Cuentas");
-    console.log(data);
-    setAccounts(data);
-  };
+  useEffect(() => {
+    axios
+      .get(`${baseUrl}/accounts/allAccounts`, {
+        headers: {
+          "Access-Control-Allow-Origin": baseUrl,
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then((response) => {
+        if (response) {
+          setAccounts(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch account data", error);
+      });
+
+    console.log(accounts);
+  }, []);
 
   const onSubmitLogOut = () => {
     setLogin(false);
@@ -45,32 +47,35 @@ const Home = ({ setLogin }: Props) => {
           type="button"
           className="btn btn-primary"
           onClick={onSubmitLogOut}
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "10px", marginBottom: "10px" }}
         >
           Salir
         </button>
       </div>
 
-      <div className="text-left">
-        <button
-          type="button"
-          className="btn btn-primary rounded"
-          onClick={getData}
-          style={{ marginTop: "10px",marginBottom:"10px" }}
+      <div className="table-responsive">
+        <table
+          className="table table-bordered table-striped mx-auto"
+          style={{ width: "80%" }}
         >
-          Obtener cuentas
-        </button>
+          <thead>
+            <tr>
+              <th>Account Number</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {accounts &&
+              accounts.map((account: any, index) => (
+                <tr key={index}>
+                  <td>{account.accountNumber}</td>
+                  <td>{account.balance}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
-
-      <div>
-        <ul className="list-group">
-          {accounts.map((account, index) => (
-            <li key={index} className="list-group-item">
-              Cuenta {account.number}, Saldo: ${account.balance.toFixed(2)}
-            </li>
-          ))}
-        </ul>
-      </div>
+      
     </div>
   );
 };
