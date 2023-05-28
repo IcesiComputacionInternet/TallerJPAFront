@@ -22,7 +22,7 @@ function App() {
         <Route path="/login" element={<Login setLogin={logIn} />}></Route>
         <Route
           path="/"
-          element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
+          element={isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn}/> : <Navigate to="/login" />}
         ></Route>
         <Route
           path="/*"
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
