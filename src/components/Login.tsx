@@ -1,43 +1,64 @@
-import React,{ useState } from 'react';
+import { useState} from 'react';
 import axios from 'axios';
 import { NavigateFunction,useNavigate } from 'react-router-dom';
-const baseUrl ="http://localhost:8080"
+const baseUrl =import.meta.env.VITE_URL_API;
 
 interface Props{
-    setLogin: (isLogged: Boolean) => void;
+    setLogin: () => void;
+    
+}
+
+interface Data{
+    token: string | undefined
 }
 
 const Login = ({setLogin} : Props) =>{
     const [userName,setUsername] = useState("")
     const [password,setPassword] = useState("")
     const navigation : NavigateFunction = useNavigate()
-    const handleSubmit =async (event:any) => {
+    var data : Data = {token: undefined}
+    
+
+    const handleSubmit = (event:any) => {
        event.preventDefault()
-       const {data} = await axios.post(
-        baseUrl+ "/login",
+       axios.post(
+        baseUrl+ "/auth/login",
         {
             userName,
             password
         },
         {
             headers: {
+                'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin":baseUrl
             }
         }
         
-       )
+       ).then((res) =>{
+            //console.log("this is the res ",res.data)
+            data = res.data
+            checkLogin()
+       }).catch((err) =>{
+           // console.log(err)
+            checkLogin()
+       })
 
-       if(data.token){
-            localStorage.setItem("jwt", data.token)
-            setLogin(true)
-            navigation("/")
-       }else{
-        alert("Invalid username or password")
-
-       }
+      
         
     }
 
+
+    const checkLogin = () =>{
+        //console.log(data)
+        if(data.token){
+             localStorage.setItem("jwt", data.token)
+             setLogin()
+             navigation("/")
+        }else{
+         alert("Invalid username or password")
+ 
+        }
+    }
     return(
         <>
             <div className="container">
