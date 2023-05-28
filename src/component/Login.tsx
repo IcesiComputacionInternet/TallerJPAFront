@@ -33,14 +33,14 @@ const Login = ({setLogin}:Props) => {
     };
 
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h3 className="card-title">Login</h3>
+        <div className="container" style={{ padding: '10px' }}>
+            <div className="row justify-content-center" style={{ padding: '10px' }}>
+                <div className="col-md-6" style={{ padding: '10px' }}>
+                    <div className="card" style={{ padding: '10px' }}>
+                        <div className="card-body" style={{ padding: '10px' }}>
+                            <h3 className="card-title" style={{ paddingBottom: '10px' }}>Login</h3>
                             <form onSubmit={handleSubmit}>
-                                <div className="form-group">
+                                <div className="form-group" style={{ paddingBottom: '10px' }}>
                                     <input 
                                         type="text" 
                                         className="form-control"
@@ -48,7 +48,7 @@ const Login = ({setLogin}:Props) => {
                                         value={username}
                                         onChange={(event) => setUsername(event.target.value)}/>
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group" style={{ paddingBottom: '10px' }}>
                                     <input 
                                         type="password" 
                                         className="form-control"
