@@ -31,8 +31,8 @@ const Login = ({ setLogin }: Props) => {
         ); 
         if (data.token) {
             localStorage.setItem("jwt", data.token);
-            localStorage.setItem("userEmail", event.username);
-            setLogin();
+            localStorage.setItem("userEmail", username);
+            setLogin(true);
             navigation("/");
         }
         } catch (error) {
