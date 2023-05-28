@@ -11,7 +11,6 @@ class AuthService {
                 password
             }, {headers: addCorsHeaders()})
             .then(response => {
-                console.log(response.data);
                 if (response.data) {
                     localStorage.setItem("jwt", JSON.stringify(response.data.token));
                     localStorage.setItem("user", JSON.stringify(response.data.user.email));

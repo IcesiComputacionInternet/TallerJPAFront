@@ -10,14 +10,18 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const NavBar: React.FC = () => {
+interface Props {
+    setLogin: (value: boolean) => void;
+}
+
+export const NavBar: React.FC<Props> = ({ setLogin }) => {
     let user = localStorage.getItem("user");
     if (user != null) {user = user.replace(/['"]+/g, '');}
 
     const logout = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        window.location.href = "/";
+        setLogin(false);
     }
 
     return (

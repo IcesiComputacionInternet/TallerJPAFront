@@ -2,10 +2,14 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavBar } from "./NavBar";
 
-export const RouterLayout: React.FC<{}> = () => {
+interface Props {
+    setLogin: (value: boolean) => void;
+}
+
+export const RouterLayout: React.FC<Props> = ({ setLogin }) => {
     return (
         <>
-            <NavBar />
+            <NavBar setLogin={setLogin}/>
             <Outlet />
         </>
     );

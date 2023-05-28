@@ -18,7 +18,7 @@ export const AppRouter: React.FC = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<RouterLayout />}>
+            <Route path="/" element={<RouterLayout setLogin={setIsLoggedIn}/>}>
                 <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
             </Route>
             <Route path="/login" element={<Login setLogin={setIsLoggedIn}/>} />

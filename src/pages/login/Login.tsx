@@ -24,8 +24,6 @@ export const Login: React.FC<Props> = ({ setLogin }) => {
             setLogin(true);
             navigation("/");
         });
-
-        console.log(data);
     };
 
     return (
