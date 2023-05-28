@@ -1,6 +1,6 @@
 import { useEffect, useState} from "react";
 import axios from "axios";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import Logout from "./Logout"
 
 const baseUrl = "http://localhost:8080";
 
@@ -8,7 +8,6 @@ function Home (){
 
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [accounts, setAccounts] = useState([]);
-    const navigation : NavigateFunction = useNavigate();
 
     const isSelected = function(index: number){
         return selectedIndex === index
@@ -18,51 +17,38 @@ function Home (){
 
     useEffect(() => {
         async function fetchData() {
-            try{
-                const result = await getData();
-                setAccounts(result);
-
-            }catch(error){
-                console.log("Error")
-            }
+            const result = await getData();
+            setAccounts(result);
         }
+
         fetchData();
     }, []);  
-    
-    const handleClick = async (event: any) => {
-
-        event.preventDefault();
-        
-        navigation("/login");
-
-        localStorage.removeItem('jwt');
-        localStorage.setItem('logged_user', "false");
-        
-    };
 
     return (
         <>
-          <h2>Cuentas bancarias del usuario con su respectivo balance</h2>
+          <h2>Your accounts</h2>
           <br />
           <ul className="list-group">
-            {accounts.map((item, index) => (
+            {accounts.map((account, index) => (
                 <div 
-                    key = {item}
+                    key = {account.accountNumber}
                     onClick = {(e) => setSelectedIndex(index)}
                     className={isSelected(index)}>
                     <div className="card-header">
-                    Cuenta #{index+1}
+                    Account #{index+1}
                     </div>
                     <div className="card-body">
                         <blockquote className="blockquote mb-0">
-                        <p> {item} </p>
+                        <p>Account number: {account.accountNumber}</p>
+                        <p>Balance: ${account.balance}</p>
                         </blockquote>
                     </div>
                 </div>
             ))}
           </ul>
           <br />
-          <button onClick={handleClick} className="btn btn-primary">LogOut</button>
+          <Logout />
+          <br />
         </>
       );
       
@@ -70,7 +56,7 @@ function Home (){
 
 async function getData() {
 
-    const { data } = await axios.get(
+    const data = await axios.get(
             
         baseUrl + "/users/getAccounts/",
         {
@@ -81,7 +67,7 @@ async function getData() {
             }
         }
     )
-    return data;
+    return data.data;
 
 }
     
