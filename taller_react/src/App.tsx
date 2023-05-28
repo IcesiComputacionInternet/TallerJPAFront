@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+//import Message from "./Message";
+import {useState, useEffect} from "react";
+import Login from "./module/Login";
+import { BrowserRouter, Navigate, Route,Routes} from "react-router-dom";
+import Home from "./module/Home";
+import NotFound from "./module/NotFound";
 
-function App() {
-  const [count, setCount] = useState(0)
+
+
+function App(){
+  const [isLogged, setIsLogged] = useState<boolean>(
+    () => localStorage.getItem("jwt") !== null
+  );
+
+  useEffect(() => {
+    localStorage.setItem("logged_user", JSON.stringify(isLogged));
+  }, [isLogged]);
+
+  const logIn = () => setIsLogged(true);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+   <BrowserRouter>
+    <Routes>
+      <Route  path="/login" element={<Login setLogin={setIsLogged}/>} />
+      <Route path="/" element={isLogged ? <Home/> : <Navigate to="/login"/>} />
+      <Route path="*" element={isLogged ? <NotFound/> : <Navigate to="/login"/>} />
+    </Routes>
+   </BrowserRouter>
+  );
 }
 
-export default App
+export default App; 

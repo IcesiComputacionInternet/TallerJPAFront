@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar {
+  background-color: aliceblue;
+  padding: 5px;
+  padding-right: 25px;
+}
+
+.navbar ul{
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar ul li a{
+  color: black;
+}
