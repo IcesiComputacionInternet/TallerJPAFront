@@ -7,7 +7,6 @@ function Home() {
 
   useEffect(() => {
     getAccountsByUserLoged().then((result) => {
-      console.log(result);
       setAccounts(result);
     });
   }, []);
@@ -21,8 +20,8 @@ function Home() {
             {accounts.map((account: any) => (
               <div className="card my-2" key={account.accountNumber}>
                 <div className="card-body">
-                  <h3 className="card-title">{account.accountNumber}</h3>
-                  <p className="card-text">{account.balance}</p>
+                  <h3 className="card-title">Cuenta: {account.accountNumber}</h3>
+                  <p className="card-text">Balance: {account.balance}</p>
                 </div>
               </div>
             ))}
