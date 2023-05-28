@@ -1,10 +1,15 @@
-function Message(){
-  return (
+function Message() {
+    
+    return(
+
     <>
-      <h3>Hello World</h3>
-      <small className="text-muted">By Juan Blanco</small>
+    
+    <h3>Hello world</h3>
+    <small className="text-muted">This is a message</small>
+
+
     </>
-  );
+    );
 }
 
-export default Message;
+export default Message
