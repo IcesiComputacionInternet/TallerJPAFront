@@ -13,28 +13,32 @@ const Login = ({ setLogin }: Props) =>{
     const navigation : NavigateFunction = useNavigate();
 
     const handleSubmit = async (event: any) => {
-        event.preventDefault();
-    
+      event.preventDefault();
+
+      try {
         const { data } = await axios.post(
-            baseUrl+"/token",
-            {
-                username,
-                password,
+          baseUrl+"/token",
+          {
+            username,
+            password,
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": baseUrl,
             },
-            {
-                headers: {
-                    "Access-Control-Allow-Origin": baseUrl,
-                },
-            }
+          }
         );
 
         if (data.token){
-            localStorage.setItem("jwt", data.token);
-            setLogin(true);
-            navigation("/");
-        }else{
-            alert("Invalid username or password")
+          localStorage.setItem("jwt", data.token);
+          setLogin(true);
+          navigation("/");
         }
+          
+      } catch (error) {
+        alert("Invalid username or password")
+        navigation("/NotFound");
+      }
     };
 
     return (
