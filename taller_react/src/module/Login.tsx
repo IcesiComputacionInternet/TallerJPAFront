@@ -26,6 +26,7 @@ const login =({setLogin}: Props) => {
                 }
             }
         );
+        console.log(data);
         if(data.token){
             localStorage.setItem("jwt", data.token);
             

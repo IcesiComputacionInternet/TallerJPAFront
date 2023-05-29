@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import 'bootstrap/dist/css/bootstrap.css'
-import navbar from './module/NavBar.tsx'
+import NavbarComp from './module/NavbarComp.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    
+   
     <App />
   </React.StrictMode>,
 )
