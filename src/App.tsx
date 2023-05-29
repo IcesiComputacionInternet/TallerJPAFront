@@ -1,10 +1,9 @@
 import './App.css'
-import Message from './Message'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Login from './Login';
-import Home from './Home';
-import NotFound from './NotFound';  
+import Login from './components/Login';
+import Home from './components/Home';
+import NotFound from './components/NotFound';  
 
 function App() {
 
