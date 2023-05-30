@@ -14,26 +14,30 @@ const Login = ({setLogin}:Props) => {
 
     const handleSubmit=async(event:any) =>{
         event.preventDefault();
-        const{data} = await axios.post(
-            baseUrl + "/token",
-            {
-                username,
-                password,
-            },
-            {
-                headers:{
-                    "Access-Control-Allow-Origin":baseUrl,
+
+        try{
+            const{data} = await axios.post(
+                baseUrl + "/token",
+                {
+                    username,
+                    password,
                 },
+                {
+                    headers:{
+                        "Access-Control-Allow-Origin":baseUrl,
+                    },
+                }
+            );
+            if(data.token){
+                //Redirect to the home page
+                localStorage.setItem("jwt", data.token);
+                setLogin(true);
+                navigation("/");
             }
-        );
-        if(data.token){
-            //Redirect to the home page
-            localStorage.setItem("jwt", data.token);
-            setLogin(true);
-            navigation("/");
-        }else{
+        }catch(error){
             //Show an error message
             alert("Invalid username or password");
+            navigation("/NotFound");
         }
     };
 

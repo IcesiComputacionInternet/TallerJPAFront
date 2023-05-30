@@ -8,10 +8,6 @@ import NotFound from "./components/NotFound.tsx";
 
 //Same as the other component we will function based components
 function App(){
-    //creates a div and inside puts the message component
-    /*return(
-            <Message message="Hello from the app"/>
-    );*/
 
     const[isLoggedIn, setIsLoggedIn] = useState<boolean>(
         () => localStorage.getItem("jwt") !== null
@@ -31,7 +27,7 @@ function App(){
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/token" element={<Login setLogin={logIn}/>}></Route>
+                <Route path="/login" element={<Login setLogin={logIn}/>}></Route>
                 <Route
                     path="/"
                     element={
@@ -41,13 +37,13 @@ function App(){
                               <button type="button" className="btn btn-primary" onClick={handleLogout}> Log out </button>
                             </>
                           ) : (
-                            <Navigate to="/token" />
+                            <Navigate to="/login"/>
                           )
                         }  
                 ></Route>
                 <Route
                     path="/*"
-                    element={isLoggedIn ? <NotFound/> : <Navigate to="/token"/>}
+                    element={isLoggedIn ? <NotFound/> : <Navigate to="/login"/>}
                 ></Route>        
             </Routes>
         </BrowserRouter>

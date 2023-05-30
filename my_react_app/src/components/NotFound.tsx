@@ -3,7 +3,7 @@ function NotFound(){
     return(
         <>
             <h1>Error 404</h1>
-            <small className="text-muted">Archivo no encontrado</small>
+            <small className="text-muted">Usuario no encontrado</small>
         </>
     );
 }
