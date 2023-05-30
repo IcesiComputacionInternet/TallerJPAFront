@@ -37,7 +37,7 @@ function Home ({setLogOut, welcome}: HomeProps) {
                             ) : (
                                 <h3>No accounts found</h3>
                             )}
-                            <small className="text-muted">By Santiago Arevalo</small>
+                            <small className="text-muted">Developed by Santiago Arevalo</small>
                         </div>
                     </div>
                 </div>

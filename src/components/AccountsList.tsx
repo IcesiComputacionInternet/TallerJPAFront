@@ -5,6 +5,8 @@ const baseUrl = "http://localhost:8081";
 interface Account {
     accountNumber: string;
     balance: number;
+    type: string;
+    active: boolean;
 }
 
 export default function AccountsList(){
@@ -28,9 +30,11 @@ export default function AccountsList(){
             }
             );
             console.log("Accounts fetched: ", response.data)
-            const mappedAccounts = response.data.map(({ accountNumber, balance }: { accountNumber: string, balance: number }) => ({
+            const mappedAccounts = response.data.map(({ accountNumber, balance, type, active}: { accountNumber: string, balance: number, type: string, active: boolean, }) => ({
                 accountNumber,
                 balance,
+                type,
+                active: active ? "ACTIVE" : "INACTIVE",
               }));
               setAccounts(mappedAccounts);
         } catch (error) {
@@ -44,6 +48,8 @@ export default function AccountsList(){
             <tr>
                 <th>Account Number</th>
                 <th>Balance</th>
+                <th>Type</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +57,8 @@ export default function AccountsList(){
             <tr key={account.accountNumber}>
               <td>{account.accountNumber}</td>
               <td>{account.balance}</td>
+              <td>{account.type}</td>
+              <td>{account.active}</td>
             </tr>
           ))}
             </tbody>

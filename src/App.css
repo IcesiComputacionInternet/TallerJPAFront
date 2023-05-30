@@ -46,6 +46,23 @@
   box-shadow: 0 0 2em #00000044;
 }
 
+.table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  background-color: #87b6c9;
+}
+
 .read-the-docs {
   color: #888;
 }
