@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [userAccounts, setUserAccounts] = useState([]);
   var listAccounts = [];
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    navigate("/login");
+  };
+
 
   useEffect(() => {
     const fetchUserAccounts = async () => {
@@ -17,8 +26,6 @@ function Home() {
           },
         });
         setUserAccounts(response.data.userAccounts || []); // Handle empty response
-        console.log(response);
-        console.log(userAccounts);
         /*const response = await axios.get('http://localhost:9090/Accounts/getAccounts');
         setUserAccounts(response.data.userAccounts || []); // Handle empty response*/
       } catch (error) {
@@ -30,7 +37,6 @@ function Home() {
 
   }, []);
 
-  console.log(Response);
   return (
     <div>
     <h1>Your accounts:</h1>
@@ -41,6 +47,7 @@ function Home() {
         <p>Balance: {account.balance}</p>
       </div>
     ))}
+    <button onClick={handleLogout}>Logout</button>
   </div>
   );
 }
