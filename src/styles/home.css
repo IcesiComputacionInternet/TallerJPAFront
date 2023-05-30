@@ -1,0 +1,18 @@
+.LogoutBtn {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .LogoutBtn:hover {
+    background-color: #45a049;
+  }
+  
+  .LogoutBtn:focus {
+    outline: none;
+  }
+  

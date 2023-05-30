@@ -3,7 +3,7 @@ import {NavigateFunction, useNavigate} from "react-router-dom";
 import { Account } from "../interfaces/Account";
 import Table from '../components/Table';
 import axios from 'axios';
-
+import '../styles/home.css';
 
 const baseUrl = "http://localhost:8080";
 
@@ -47,7 +47,7 @@ const HomePage = () => {
     <div className="Table">
       <h1>Accounts</h1>
       <Table data={accounts} column={columns}></Table>
-      <button className='LogoutBtn' onClick={handleLogout}>Log Out</button>
+      <button className="LogoutBtn" onClick={handleLogout}>Log Out</button>
 
     </div>
   )
