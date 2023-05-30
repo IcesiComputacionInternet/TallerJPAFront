@@ -18,7 +18,7 @@ function App() {
   }, [isLoggedIn]);
 
   const login = () => setIsLoggedIn(true);
-  const logout = () => setIsLoggedIn(true);
+  const logout = () => setIsLoggedOut(true);
 
   return (
     <BrowserRouter>

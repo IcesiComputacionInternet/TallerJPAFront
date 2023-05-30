@@ -8,20 +8,16 @@ interface Props {
     setLogin: (value: boolean) => void;
 }
 
-interface Token {
-    token: string | undefined
-}
-
 const Login = ({ setLogin }: Props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigation : NavigateFunction = useNavigate();
-    var token: Token = { token: undefined};
+    var token: string
 
-    const handleSubmit = async (event: any) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
 
-        const { data } = await axios.post(
+        axios.post(
             baseUrl + "/token",
             {
                 username,
@@ -35,11 +31,11 @@ const Login = ({ setLogin }: Props) => {
             }
         ).then((response) => {
             token = response.data;
-            console.log(token);
+            console.log("Token obtained: ",token);
             verifyToken()
         }).catch((error) => {
             console.log(error);
-            verifyToken
+            verifyToken()
         })
 
 
@@ -47,9 +43,9 @@ const Login = ({ setLogin }: Props) => {
     }
 
     const verifyToken =  () => {
-        if(token.token) {
+        if(token) {
             //Redirect to the home page
-            localStorage.setItem("jwt", token.token);
+            localStorage.setItem("jwt", token);
             localStorage.setItem("username", username);
             setLogin(true);
             navigation("/");
