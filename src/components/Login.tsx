@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import '../App.css'
 
 const baseUrl = "http://localhost:8081";
 
@@ -63,7 +64,7 @@ const Login = ({ setLogin }: Props) => {
                         <div className="card-body">
                             <h3 className="card-title text-center">Login</h3>
                             <form onSubmit={handleSubmit}>
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input
                                         type="text"
                                         className="form-control"
@@ -72,7 +73,7 @@ const Login = ({ setLogin }: Props) => {
                                         onChange={(event) => setUsername(event.target.value)}
                                     />
                                 </div>
-                                <div className="form-group">
+                                <div className="form-group mb-3">
                                     <input
                                         type="password"
                                         className="form-control"
@@ -81,9 +82,11 @@ const Login = ({ setLogin }: Props) => {
                                         onChange={(event) => setPassword(event.target.value)}
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary">
-                                    Login
-                                </button>
+                                <div className="text-center">
+                                    <button type="submit" className="btn btn-primary">
+                                        Login
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>

@@ -35,6 +35,15 @@
 
 .card {
   padding: 2em;
+  margin: 2em;
+  border-radius: 8px;
+  box-shadow: 0 0 2em #00000022;
+  background-color: #ffffff;
+  transition: box-shadow 300ms;
+}
+
+.card:hover {
+  box-shadow: 0 0 2em #00000044;
 }
 
 .read-the-docs {

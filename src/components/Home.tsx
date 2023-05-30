@@ -1,4 +1,5 @@
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import AccountsList from "./AccountsList";
 
 interface HomeProps {
     setLogOut: () => void;
@@ -20,15 +21,23 @@ function Home ({setLogOut, welcome}: HomeProps) {
                 <div className="col-md-6">
                     <div className="card">
                         <div className="card-body">
-                            <h3>{welcome}</h3>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h3>{welcome}</h3>
+                            
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={handleLogOut}
+                                >
+                                    Log Out
+                                </button>
+                            </div>
+                            {<AccountsList /> ? (
+                                <AccountsList />
+                            ) : (
+                                <h3>No accounts found</h3>
+                            )}
                             <small className="text-muted">By Santiago Arevalo</small>
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={handleLogOut}
-                            >
-                                Log Out
-                            </button>
                         </div>
                     </div>
                 </div>
