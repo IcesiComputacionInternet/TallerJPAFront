@@ -42,12 +42,12 @@ function Home() {
     <h1>Your accounts:</h1>
     {/* Display the user accounts */}
     {userAccounts.map((account) => (
-      <div key={account.accountId}>
-        <p>Account Number: {account.accountNumber}</p>
-        <p>Balance: {account.balance}</p>
+      <div key={account.accountId} className='card text-bg-light p-3 mt-3'>
+        <p className='h5 text-primary '>Account Number: {account.accountNumber}</p>
+        <p className='h7 text-secondary'>Balance: {account.balance}</p>
       </div>
     ))}
-    <button onClick={handleLogout}>Logout</button>
+    <button onClick={handleLogout} className='btn btn-primary mt-3'>Logout</button>
   </div>
   );
 }
