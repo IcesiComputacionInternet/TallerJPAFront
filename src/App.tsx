@@ -16,7 +16,11 @@ function App() {
     localStorage.setItem("logged_user", JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
-  const logIn = () => {setIsLoggedIn(true)};
+  const logIn = () => {
+    setIsLoggedIn(true)
+    // Redirect the user to /Accounts/getAccounts
+    //window.location.href = '/Accounts/getAccounts';
+  };
 
 
   return (
