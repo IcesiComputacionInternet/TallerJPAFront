@@ -8,6 +8,7 @@ interface Props{
 }
 
 const Login = ({setLogin}: Props) => {
+    localStorage.clear()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigation : NavigateFunction = useNavigate();
@@ -29,11 +30,11 @@ const Login = ({setLogin}: Props) => {
         }
       );
 
-      console.log({data})
+    //   console.log({data})
       if(data.token){
         localStorage.setItem("jwt", data.token);
         setLogin(true);
-        navigation("/"); 
+        navigation("/home"); 
       }else{
         alert("Invalid username or password");
       }
@@ -75,11 +76,6 @@ const Login = ({setLogin}: Props) => {
                 </div>
 
             </div>
-
-
-
-
-
         </div>
     )
 }

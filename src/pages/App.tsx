@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import '../styles/App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Login from '../components/Login';
-import Home from '../components/Home';
-import NotFound from '../components/NotFound';
+import Login from './Login';
+import Home from './Home';
 
 
 function App() {
@@ -11,6 +10,8 @@ function App() {
     () => localStorage.getItem("jwt") !== null
   );
   
+  var token = localStorage.getItem("jwt")
+  console.log(token)
   useEffect(() => {
     localStorage.setItem("logged_user", JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
@@ -20,9 +21,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login setLogin={logIn}/>}></Route>
-        <Route path='/' element={isLoggedIn ? <Home /> : <Navigate to="/login"/>}/>
-        <Route path='/*' element={isLoggedIn ? <NotFound/> : <Navigate to="/login/" />}/>
+        <Route path="/" element={<Login setLogin={logIn}/>}></Route>
+        <Route path="/home" element={isLoggedIn ? <Home /> : <Navigate to="/"/>}/>
       </Routes>
     </BrowserRouter>
   );
