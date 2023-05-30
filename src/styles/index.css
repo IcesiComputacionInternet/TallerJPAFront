@@ -68,4 +68,6 @@ button:focus-visible {
   }
 }
 
-
+.container{
+  align-items: center;
+}

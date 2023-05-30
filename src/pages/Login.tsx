@@ -30,7 +30,6 @@ const Login = ({setLogin}: Props) => {
         }
       );
 
-    //   console.log({data})
       if(data.token){
         localStorage.setItem("jwt", data.token);
         setLogin(true);
@@ -40,44 +39,39 @@ const Login = ({setLogin}: Props) => {
       }
     };
     return(
-        <div className="container">
-            <div className="row justify- content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h3 className="card-title">Login</h3>
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Username"
-                                        value={username}
-                                        onChange={(event) => setUsername(event.target.value)}                                    
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={(event) => setPassword(event.target.value)}                               
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                                    Login
-                                </button>
-                            </form>
-                        </div>
-
+            <div className="container d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+              <div className="card">
+                <div className="card-body">
+                  <h3 className="card-title">Login</h3>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-group mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                      />
                     </div>
-
+                    <div className="form-group mb-3">
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                      />
+                    </div>
+                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                      Login
+                    </button>
+                  </form>
                 </div>
-
+              </div>
             </div>
-        </div>
-    )
+          );
+          
+    
 }
 
 export default Login;
