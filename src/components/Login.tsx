@@ -2,16 +2,21 @@ import { useState } from "react";
 import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-const baseUrl = "http://localhost:5173";
+const baseUrl = "http://localhost:8081";
 
 interface Props {
-    setLogin: () => void;
+    setLogin: (value: boolean) => void;
+}
+
+interface Token {
+    token: string | undefined
 }
 
 const Login = ({ setLogin }: Props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigation : NavigateFunction = useNavigate();
+    var token: Token = { token: undefined};
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -20,27 +25,39 @@ const Login = ({ setLogin }: Props) => {
             baseUrl + "/token",
             {
                 username,
-                password,
+                password
             },
             {
                 headers: {
-                    "Access-Control-Allow-Origin": baseUrl,
-                },
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": baseUrl
+                }
             }
-        );
+        ).then((response) => {
+            token = response.data;
+            console.log(token);
+            verifyToken()
+        }).catch((error) => {
+            console.log(error);
+            verifyToken
+        })
 
-        if(data.token) {
+
+        console.log({ username, password })
+    }
+
+    const verifyToken =  () => {
+        if(token.token) {
             //Redirect to the home page
-            localStorage.setItem("jwt", data.token);
-            setLogin();
-            navigation("/list");
+            localStorage.setItem("jwt", token.token);
+            localStorage.setItem("username", username);
+            setLogin(true);
+            navigation("/");
         }else {
             //Show error message
             alert("Invalid credentials");
         }
-
-        console.log({ username, password })
-    };
+    }
 
     return (
         <div className="container">
