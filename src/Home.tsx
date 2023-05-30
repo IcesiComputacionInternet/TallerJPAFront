@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
-  const [userAccounts, setUserAccounts] = useState([]);
+  const [userAccounts, setUserAccounts] = useState<any[]>([]);
   var listAccounts = [];
 
   const navigate = useNavigate();
