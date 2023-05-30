@@ -3,7 +3,7 @@ import {NavigateFunction, useNavigate} from "react-router-dom";
 import { Account } from "../interfaces/Account";
 import Table from '../components/Table';
 import axios from 'axios';
-i
+
 
 const baseUrl = "http://localhost:8080";
 
