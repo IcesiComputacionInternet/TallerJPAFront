@@ -1,0 +1,20 @@
+.account-item {
+    transition: background-color 0.3s ease;
+  }
+  
+.account-item:hover {
+    background-color: #5a6db19f;
+    cursor: pointer;
+}
+  
+.account-label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+.btn-logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+  

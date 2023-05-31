@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import "../styles/Home.css";
 
 interface Props {
     setIsLoggedIn: (value: boolean) => void;
@@ -46,16 +47,23 @@ function Home( { setIsLoggedIn }: Props) {
     }, []);
 
     return (
-        <>
-            <h1>Home</h1>
-            <h2>User Accounts:</h2>
-            <ul>
-                {userAccountsData.map((account, index) => (
-                    <li key={index}>{account.accountNumber} {account.balance}</li>
-                    ))}
-            </ul>
-            <button onClick={handleLogout}>Logout</button>
-        </>
+        <div className="container">
+          <h1>Home</h1>
+          <h2>User Accounts:</h2>
+          <ul className="list-group">
+            {userAccountsData.map((account, index) => (
+              <li key={index} className="list-group-item account-item">
+                <span className="account-label">Account Number:</span>{" "}
+                {account.accountNumber}
+                <br />
+                <span className="account-label">Balance:</span> {account.balance}
+              </li>
+            ))}
+          </ul>
+          <button onClick={handleLogout} className="btn btn-primary btn-logout">
+            Logout
+          </button>
+        </div>
     );
     
 }
