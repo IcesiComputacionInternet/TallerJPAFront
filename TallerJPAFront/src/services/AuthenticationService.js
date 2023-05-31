@@ -4,6 +4,11 @@ const API_URL = "http://localhost:8080";
 
 class AuthenticationService {
     login(email, password) {
+        let token = localStorage.getItem("jwt")
+        let auth = ''
+        if (token) {
+            auth = 'Bearer ' + token.replace(/['"]+/g, '')
+        }
         return axios
             .post(API_URL + "/login", {
                 email,
@@ -11,7 +16,7 @@ class AuthenticationService {
             }, {headers: { 'Access-Control-Allow-Origin': 'http://127.0.0.1:5173',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
             'Access-Control-Allow-Headers': 'Content-Type',
-            'Authorization': 'Bearer ' + localStorage.getItem("jwt").replace(/['"]+/g, '')}})
+            'Authorization': auth}})
             .then(res => {
                 if (res.data) {
                     localStorage.setItem("jwt", JSON.stringify(response.data.token));
@@ -23,7 +28,9 @@ class AuthenticationService {
     }
 
     logout() {
-        localStorage.removeItem("jwt");
+        localStorage.removeItem("jwt")
+        localStorage.removeItem("email")
+        localStorage.removeItem("logged_user")
     }
 }
 
